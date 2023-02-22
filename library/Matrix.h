@@ -19,6 +19,10 @@ public:
     Matrix add(Matrix &rhs);
     Matrix multiply(Matrix &rhs);
     Matrix transpose();
+    Matrix from(std::vector<std::vector<double>>);
+    Matrix map(double (*func)(double));
+    std::vector<double> row(unsigned row) const;
+    std::vector<double> column(unsigned col) const;
     friend std::ostream& operator<<(std::ostream& os, const Matrix &rhs);
 
 

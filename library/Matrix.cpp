@@ -5,6 +5,7 @@
 #include "Matrix.h"
 #include <random>
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -72,6 +73,40 @@ Matrix Matrix::multiply(Matrix &rhs) {
     }
     return result;
 }
+
+Matrix Matrix::from(std::vector<std::vector<double>> _data) {
+   return Matrix(_data.size(), _data[0].size(), _data);
+}
+
+Matrix Matrix::map(double (*func)(double)) {
+   for (const auto&vec : data) {
+      for (double var : vec){
+         func(var);
+      }
+   }
+   return *this;
+}
+
+vector<double> Matrix::row(unsigned int row) const {
+   vector<double> result(this->rows, 0.0);
+
+   for (size_t i = 0; i < this->cols; i++){
+      result.push_back(this->data[row][i]);
+   }
+
+   return result;
+}
+
+vector<double> Matrix::column(unsigned int col) const {
+   vector<double> result(this->cols, 0.0);
+
+   for (size_t i = 0; i < this->rows; i++){
+      result.push_back(this->data[i][col]);
+   }
+
+   return result;
+}
+
 
 ostream& operator<<(ostream& os, const Matrix &rhs) {
     for (size_t i = 0; i < rhs.rows; ++i) {
